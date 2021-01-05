@@ -32,9 +32,37 @@ class OfferZoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) #Con este método, enviamos el correo por axios
+    {   
+        try {
+            $friend_name = $request->friend_name ? $request->friend_name : NULL; 
+            $your_name = $request->your_name ? $request->your_name : NULL;
+
+            $view = view('app.email_views.views.offer');
+
+            $data = [
+                'subect' => "Hola ".$friend_name.", tu amigo(a) ".$your_name." te ha compartido una oferta que no deberías perderte!",
+                'view' => $view,
+            ];
+
+            if($request->friend_email){
+
+                \Mail::to($request->friend_email)->send(new \App\Mail\SystemMail($data));
+
+                return response()->json([
+                    'message' => 'Oferta compartida con éxito!',
+                    'data' => $data,
+                    'status' => "Success",
+                    'success' => true
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => "Error",
+                'success' => false
+            ]);
+        }
     }
 
     /**

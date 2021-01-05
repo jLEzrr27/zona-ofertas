@@ -1,0 +1,1 @@
+{!! (isset($data['view']) and $data['view']) ? $data['view'] : NULL !!}

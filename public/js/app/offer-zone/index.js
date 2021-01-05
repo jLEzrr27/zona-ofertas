@@ -1,3 +1,4 @@
+/*Función para enviar por axios los datos al correo */
 const submitShareOffer = () => {
     const {
         your_name,
