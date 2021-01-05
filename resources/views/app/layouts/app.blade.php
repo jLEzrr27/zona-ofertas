@@ -15,7 +15,7 @@
         <title>Zona de ofertas</title>
 
     </head>
-    <body class="">
+    <body>
         <div class="container-scroller">
             <div class="container-fluid page-body-wrapper">
                 <!-- partial -->
