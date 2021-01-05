@@ -32,7 +32,7 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
         <script src="{{ asset('bootstrap4/bootstrap.min.js') }}"></script>
-        <script src="{{ resource_path('js/axios.min.js') }}"></script>
+        <script src="{{ asset('resources/axios.min.js') }}"></script>
 
         @yield('scripts')
     </body>
