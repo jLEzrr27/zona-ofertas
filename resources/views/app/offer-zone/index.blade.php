@@ -11,6 +11,11 @@
     <div class="row justify-content-center font-weight-bold">
         <p>Comparte esta oferta con tus amigos</p>
     </div>
+    <div class="row" id="gif_send_email" style="display:none;">
+        <center>
+        <img src="https://media.tenor.com/images/1bcfaadb7ed926566b25b16f256a5d1f/tenor.gif" width="120" height="120">
+        </center>
+   </div>
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
@@ -36,6 +41,9 @@
                         </div>
                         <div class="form-group row justify-content-center">
                             <button type="button" id="btn_share_offer" class="btn btn-primary">Enviar</button>
+                        </div>
+                        <div class="form-group row justify-content-center top-message" style="display:none;">
+                            <div class="p-3 mb-2 inside-message text-white"></div>
                         </div>
                     </form>
                 </div>
