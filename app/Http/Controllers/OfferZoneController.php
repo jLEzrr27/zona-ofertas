@@ -38,10 +38,15 @@ class OfferZoneController extends Controller
             $friend_name = $request->friend_name ? $request->friend_name : NULL; 
             $your_name = $request->your_name ? $request->your_name : NULL;
 
-            $view = view('app.email_views.views.offer');
+            $var_view = [
+                'friend_name' => $friend_name,
+                'your_name' => $your_name,
+                'date_send' => date("d/m/Y")
+            ];
+            $view = view('app.email_views.views.offer')->with($var_view);
 
             $data = [
-                'subect' => "Hola ".$friend_name.", tu amigo(a) ".$your_name." te ha compartido una oferta que no deberías perderte!",
+                'subject' => "Tu amigo(a) ".$your_name." te ha compartido una oferta que no deberías perderte!",
                 'view' => $view,
             ];
 
@@ -49,17 +54,35 @@ class OfferZoneController extends Controller
 
                 \Mail::to($request->friend_email)->send(new \App\Mail\SystemMail($data));
 
-                return response()->json([
-                    'message' => 'Oferta compartida con éxito!',
-                    'data' => $data,
-                    'status' => "Success",
-                    'success' => true
-                ]);
+                if (count(\Mail::failures()) > 0) {
+                    return response()->json([
+                        'message' => 'Falló al enviar correo. Intenta de nuevo o contacta con soporte',
+                        'data' => $data,
+                        'status' => "danger",
+                        'success' => false
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'message' => 'Oferta compartida con éxito!',
+                        'data' => $data,
+                        'status' => "success",
+                        'success' => true
+                    ]);
+                }
             }
+            else{
+                return response()->json([
+                    'message' => 'Debes ingresar el correo de tu amigo!',
+                    'status' => "danger",
+                    'success' => false
+                ]);               
+            }
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
-                'status' => "Error",
+                'status' => "danger",
                 'success' => false
             ]);
         }

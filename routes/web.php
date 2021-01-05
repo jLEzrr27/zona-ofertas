@@ -13,5 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+#Renderiza vista home de envío de correo
 Route::get('/', [App\Http\Controllers\OfferZoneController::class, 'index'])->name('indexOfferZone');
+
+#Se encarga de ejecutar el envío del correo para compartir oferta
 Route::post('/share-offer', [App\Http\Controllers\OfferZoneController::class, 'store'])->name('storeOfferZone');
